@@ -355,6 +355,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ReceiptTransfer/ReceiptTransfer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ReceiptTransfer/Preview Content\"";
@@ -384,6 +385,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ReceiptTransfer/ReceiptTransfer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ReceiptTransfer/Preview Content\"";
@@ -411,8 +413,8 @@
 		87D97D372DFD963F0024723B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				API_KEY = gZBrBwHCUNpw2jX89o4JXDBzq46eBAF2;
 				API_URL = "https://receipt-handler.henril.com/receipt";
+				CODE_SIGN_ENTITLEMENTS = ShareToReceiptUploader/ShareToReceiptUploader.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = JF4JY6BKY6;
@@ -438,8 +440,8 @@
 		87D97D382DFD963F0024723B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				API_KEY = gZBrBwHCUNpw2jX89o4JXDBzq46eBAF2;
 				API_URL = "https://receipt-handler.henril.com/receipt";
+				CODE_SIGN_ENTITLEMENTS = ShareToReceiptUploader/ShareToReceiptUploader.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = JF4JY6BKY6;

@@ -49,6 +49,26 @@ class ShareViewController: UIViewController {
     }
     
     
+    func promptForAPIKey(completion: @escaping (Bool) -> Void) {
+        let alert = UIAlertController(title: "API Key Required", message: "Please enter your API Key", preferredStyle: .alert)
+        alert.addTextField { textField in
+            textField.placeholder = "API Key"
+            textField.isSecureTextEntry = true
+        }
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            completion(false)
+        })
+        alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+            if let apiKey = alert.textFields?.first?.text, !apiKey.isEmpty {
+                saveTokenToKeychain(token: apiKey)
+                completion(true)
+            } else {
+                completion(false)
+            }
+        })
+        self.present(alert, animated: true)
+    }
+
 
     
     func showResultAlert(success: Bool, message: String) {
@@ -72,22 +92,29 @@ class ShareViewController: UIViewController {
             fatalError("API URL not found in Info.plist")
         }
         
-//        guard let apiURL = ProcessInfo.processInfo.environment["API_URL"] else {
-//            return showResultAlert(success: false, message: "API_URL environment variable not found")
-//        }
         
         guard let url = URL(string: apiUrl) else {
             completeRequest()
             return
         }
         
-        guard let apiKey = Bundle.main.object(forInfoDictionaryKey: "APIKEY") as? String else {
-            fatalError("API Key not found in Info.plist")
+        guard let apiKey = getTokenFromKeychain() else {
+            // Prompt user for API Key and retry upload if successful
+            promptForAPIKey { success in
+                if success {
+                    DispatchQueue.main.async {
+                        self.uploadReceiptPDF(from: fileURL) // retry upload
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.showResultAlert(success: false, message: "API Key is required to upload the receipt")
+                        self.completeRequest()
+                    }
+                }
+            }
+            return
         }
         
-//        guard let apiKey = ProcessInfo.processInfo.environment["API_KEY"] else {
-//            return showResultAlert(success: false, message: "API_KEY environment variable not found")
-//        }
         
         let boundary = UUID().uuidString
         var request = URLRequest(url: url)
